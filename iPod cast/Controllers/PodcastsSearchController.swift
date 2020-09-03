@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 
 class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 	
-	let podcasts = [
-		Podcast(name: "Learning swift", artistName: "wiz"),
-		Podcast(name: "Lets build that app", artistName: "Brain Voong"),
-		Podcast(name: "Code with chris", artistName: "Chris")
+	var podcasts = [
+		Podcast(trackName: "Learning swift", artistName: "wiz"),
+		Podcast(trackName: "Lets build that app", artistName: "Brain Voong"),
+		Podcast(trackName: "Code with chris", artistName: "Chris")
 	]
 	
 	let cellId = "cellId"
@@ -42,7 +43,31 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 	}
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		print(searchText)
+		//print(searchText)
+		
+		//let url = "http://itunes.apple.com/search?term=\(searchText)"
+		let url = "http://itunes.apple.com/search"
+		let parameters = ["term": searchText, "media": "podcast"]
+		AF.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
+			if let err = dataResponse.error {
+				print("failed to contact google", err)
+			}
+			guard let data = dataResponse.data else {
+				return
+			}
+			do{
+				let searchResult = try JSONDecoder().decode(SearchResults.self, from: data)
+				self.podcasts = searchResult.results
+				self.tableView.reloadData()
+			}catch let decodeErr {
+				print("Failed to decode:", decodeErr)
+			}
+		}
+	}
+	
+	struct SearchResults: Decodable {
+		let resultCount: Int
+		let results: [Podcast]
 	}
 	
 	//MARK:- UITableview
@@ -54,7 +79,7 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
 		
 		let podcast = self.podcasts[indexPath.row]
-		cell.textLabel?.text = "\(podcast.name)\n\(podcast.artistName)"
+		cell.textLabel?.text = "\(podcast.trackName ?? "")\n\(podcast.artistName ?? "")"
 		cell.textLabel?.numberOfLines = -1
 		cell.imageView?.image = #imageLiteral(resourceName: "appicon")
 		return cell
