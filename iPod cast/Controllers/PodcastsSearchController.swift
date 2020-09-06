@@ -11,12 +11,7 @@ import Alamofire
 
 class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 	
-	var podcasts = [
-		Podcast(trackName: "Learning swift", artistName: "wiz"),
-		Podcast(trackName: "Lets build that app", artistName: "Brain Voong"),
-		Podcast(trackName: "Code with chris", artistName: "Chris")
-	]
-	
+	var podcasts = [Podcast]()
 	let cellId = "cellId"
 	
 	//lets implement a UISearchController
@@ -31,6 +26,7 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 	
 	//MARK:- Setup work
 	fileprivate func setupSearchBar(){
+		self.definesPresentationContext = false
 		navigationItem.searchController = searchController
 		navigationItem.hidesSearchBarWhenScrolling = false
 		searchController.obscuresBackgroundDuringPresentation = false
@@ -38,50 +34,61 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 	}
 	
 	fileprivate func setupTableView(){
+		
 		//register a cell for tableview
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+		//tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+		tableView.tableFooterView = UIView()
+		let nib = UINib(nibName: "PodcastCell", bundle: nil)
+		tableView.register(nib, forCellReuseIdentifier: cellId)
 	}
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//print(searchText)
-		
-		//let url = "http://itunes.apple.com/search?term=\(searchText)"
-		let url = "http://itunes.apple.com/search"
-		let parameters = ["term": searchText, "media": "podcast"]
-		AF.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in
-			if let err = dataResponse.error {
-				print("failed to contact google", err)
-			}
-			guard let data = dataResponse.data else {
-				return
-			}
-			do{
-				let searchResult = try JSONDecoder().decode(SearchResults.self, from: data)
-				self.podcasts = searchResult.results
-				self.tableView.reloadData()
-			}catch let decodeErr {
-				print("Failed to decode:", decodeErr)
-			}
+		APIService.shared.fetchPodcasts(searchText: searchText) { (podcasts) in
+			self.podcasts = podcasts
+			self.tableView.reloadData()
 		}
+
 	}
-	
-	struct SearchResults: Decodable {
-		let resultCount: Int
-		let results: [Podcast]
-	}
+
 	
 	//MARK:- UITableview
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		let episodesController = EpisodesController()
+		let podcast = self.podcasts[indexPath.row]
+		episodesController.podcast = podcast
+		navigationController?.pushViewController(episodesController, animated: true)
+	}
+	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let label = UILabel()
+		label.text = "Please enter a search Term"
+		label.textAlignment = .center
+		label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+		label.textColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+		return label
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return self.podcasts.count > 0 ? 0 : 250
+	}
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return podcasts.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? PodcastCell else {
+			fatalError("fail to load cell")
+		}
 		
 		let podcast = self.podcasts[indexPath.row]
-		cell.textLabel?.text = "\(podcast.trackName ?? "")\n\(podcast.artistName ?? "")"
-		cell.textLabel?.numberOfLines = -1
-		cell.imageView?.image = #imageLiteral(resourceName: "appicon")
+		cell.podcast = podcast
 		return cell
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 132
 	}
 }
