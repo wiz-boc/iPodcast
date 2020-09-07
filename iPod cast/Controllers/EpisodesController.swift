@@ -11,11 +11,6 @@ import FeedKit
 
 class EpisodesController: UITableViewController {
 	
-	
-	struct Episode {
-		let title: String
-	}
-	
 	fileprivate let cellId = "cellId"
 	var episodes = [Episode]()
 	
@@ -26,52 +21,28 @@ class EpisodesController: UITableViewController {
 		}
 	}
 	
-	fileprivate func fetchEpisodes(){
-		print("Looking for episodes at feed url:", podcast?.feedUrl ?? "")
-		
-		guard let feedURL = podcast?.feedUrl else { return }
-		let secureFeedURL = feedURL.contains("https") ? feedURL : feedURL.replacingOccurrences(of: "http", with: "https")
-		guard let url = URL(string: secureFeedURL) else {return }
-		let parser = FeedParser(URL: url)
-		parser.parseAsync { (result) in
-			print("Sccuessfully parse feed:",result)
-			
-			switch result {
-				case .success(let feed):
-					
-					var episodes = [Episode]()
-					//feed.rssFeed
-					switch feed {
-						case let .rss(feed):
-							feed.items?.forEach({ (feedItem) in
-								
-								let episode = Episode(title: feedItem.title ?? "")
-								episodes.append(episode)
-								print("Feed title :",feedItem.title ?? "")
-							})
-							self.episodes = episodes
-							DispatchQueue.main.async {
-								self.tableView.reloadData()
-							}
-							break
-						default:
-							print("Found a feed...")
-					}
-				
-				case .failure(let error):
-					print("Failed to parse feed: ",error)
-			}
-		}
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
 	}
 	
+	fileprivate func fetchEpisodes(){
+		print("Looking for episodes at feed url:", podcast?.feedUrl ?? "")
+		
+		guard let feedURL = podcast?.feedUrl else { return }
+		APIService.shared.fetchEpisodes(feedURL: feedURL) { (episodes) in
+			self.episodes = episodes
+			DispatchQueue.main.async {
+				self.tableView.reloadData()
+			}
+		}
+	}
+	
 	//MARK:- Setup work
 	fileprivate func setupTableView(){
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+		
+		let nib = UINib(nibName: "EpisodeCell", bundle: nil)
+		tableView.register(nib, forCellReuseIdentifier: cellId)
 		tableView.tableFooterView = UIView()
 	}
 	
@@ -82,10 +53,15 @@ class EpisodesController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? EpisodeCell else { fatalError("Episode cell fail to load ")}
 		let episode = episodes[indexPath.row]
-		cell.textLabel?.text = episode.title
+		cell.episode = episode
+
 		return cell
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 134
 	}
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)

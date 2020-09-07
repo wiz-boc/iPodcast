@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import FeedKit
 
 class APIService {
 	
@@ -15,6 +16,43 @@ class APIService {
 	//singleton
 	static let shared = APIService()
 	
+	
+	func fetchEpisodes(feedURL: String, completionHandler: @escaping ([Episode]) -> ()){
+		let secureFeedURL = feedURL.contains("https") ? feedURL : feedURL.replacingOccurrences(of: "http", with: "https")
+		guard let url = URL(string: secureFeedURL) else {return }
+		let parser = FeedParser(URL: url)
+		parser.parseAsync { (result) in
+			print("Sccuessfully parse feed:",result)
+			
+			if case .failure(let error) = result {
+				print("Failed to parse feed: ",error)
+			}
+			
+			if case .success(let feedData) = result {
+				
+				guard let feed = feedData.rssFeed else { return }
+				let episodes = feed.toEpisodes()
+				completionHandler(episodes)
+			}
+			//			switch result {
+			//				case .success(let feed):
+			//
+			//					//var episodes = [Episode]()
+			//					//feed.rssFeed
+			//					switch feed {
+			//						case let .rss(feed):
+			//							self.episodes = feed.toEpisodes()
+			//							DispatchQueue.main.async {
+			//								self.tableView.reloadData()
+			//							}
+			//							break
+			//						default:
+			//							print("Found a feed...")
+			//					}
+			//				case .failure(let error):
+			//			}
+		}
+	}
 	
 	func fetchPodcasts(searchText: String, completionHandler: @escaping ([Podcast]) -> ()){
 		//let url = "http://itunes.apple.com/search?term=\(searchText)"
