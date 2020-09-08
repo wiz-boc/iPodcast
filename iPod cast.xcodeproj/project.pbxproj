@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7338C2A22507297600BCD937 /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7338C2A12507297600BCD937 /* PlayerDetailsView.xib */; };
+		7338C2A42507386D00BCD937 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */; };
 		739CA529250410010047C95C /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CA528250410010047C95C /* APIService.swift */; };
 		739CA52C2504350A0047C95C /* PodcastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 739CA52B2504350A0047C95C /* PodcastCell.xib */; };
 		739CA52E250437500047C95C /* PodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CA52D250437500047C95C /* PodcastCell.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7338C2A12507297600BCD937 /* PlayerDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
+		7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
 		739CA528250410010047C95C /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		739CA52B2504350A0047C95C /* PodcastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastCell.xib; sourceTree = "<group>"; };
 		739CA52D250437500047C95C /* PodcastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastCell.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				739CA52D250437500047C95C /* PodcastCell.swift */,
 				73D7CC6725059F8F00448B58 /* EpisodeCell.swift */,
 				73D7CC6825059F8F00448B58 /* EpisodeCell.xib */,
+				7338C2A12507297600BCD937 /* PlayerDetailsView.xib */,
+				7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7338C2A22507297600BCD937 /* PlayerDetailsView.xib in Resources */,
 				73E6C1A3250049E200D3E750 /* LaunchScreen.storyboard in Resources */,
 				73E6C1A0250049E200D3E750 /* Assets.xcassets in Resources */,
 				73D7CC6A25059F8F00448B58 /* EpisodeCell.xib in Resources */,
@@ -238,6 +245,7 @@
 				739CA52E250437500047C95C /* PodcastCell.swift in Sources */,
 				73D7CC6925059F8F00448B58 /* EpisodeCell.swift in Sources */,
 				73D7CC6625059E4700448B58 /* Episode.swift in Sources */,
+				7338C2A42507386D00BCD937 /* PlayerDetailsView.swift in Sources */,
 				73E6C197250049E000D3E750 /* AppDelegate.swift in Sources */,
 				73D7CC6D2505DE7400448B58 /* String.swift in Sources */,
 				73D0FAE325006BFE003EFD16 /* Podcast.swift in Sources */,
