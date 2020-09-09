@@ -29,7 +29,7 @@
                                 <action selector="dismissTapped:" destination="MFB-r5-KVl" eventType="touchUpInside" id="YlI-t8-duO"/>
                             </connections>
                         </button>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="253" verticalHuggingPriority="253" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="eHa-OK-10i">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" image="appicon" translatesAutoresizingMaskIntoConstraints="NO" id="eHa-OK-10i">
                             <rect key="frame" x="0.0" y="49" width="366" height="366"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="eHa-OK-10i" secondAttribute="height" id="fSB-ry-0rf"/>
@@ -86,38 +86,48 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="216.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-aC-d1W">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-aC-d1W">
                                     <rect key="frame" x="50" y="0.0" width="44" height="216.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="fLk-AX-8JT"/>
                                     </constraints>
-                                    <state key="normal" image="rewind15"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="rewind15">
+                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISo-tn-xgi">
                                     <rect key="frame" x="94" y="0.0" width="50" height="216.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIH-h9-60U">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIH-h9-60U">
                                     <rect key="frame" x="144" y="0.0" width="54" height="216.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="54" id="1s5-h4-Y6O"/>
                                     </constraints>
-                                    <state key="normal" title="Button" image="play"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Button" image="play">
+                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r55-uE-w88">
                                     <rect key="frame" x="198" y="0.0" width="74" height="216.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXr-gp-UU7">
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXr-gp-UU7">
                                     <rect key="frame" x="272" y="0.0" width="44" height="216.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="Rh9-iR-TrJ"/>
                                     </constraints>
-                                    <state key="normal" image="fastforward15"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="fastforward15">
+                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GeW-jt-VAc">
                                     <rect key="frame" x="316" y="0.0" width="50" height="216.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
                         </stackView>
