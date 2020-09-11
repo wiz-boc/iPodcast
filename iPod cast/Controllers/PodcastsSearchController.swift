@@ -44,17 +44,58 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 		tableView.register(nib, forCellReuseIdentifier: cellId)
 	}
 	
+	var footerHeight: CGFloat = 200
+	var headerHeight: CGFloat = 0
+	var timer: Timer?
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//print(searchText)
-		APIService.shared.fetchPodcasts(searchText: searchText) { (podcasts) in
-			self.podcasts = podcasts
-			self.tableView.reloadData()
-		}
-
+		
+		podcasts = []
+		tableView.reloadData()
+		
+		timer?.invalidate()
+		timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+			APIService.shared.fetchPodcasts(searchText: searchText) { (podcasts) in
+				self.podcasts = podcasts
+				self.tableView.reloadData()
+				if podcasts.isEmpty {
+					self.headerHeight = 200
+					self.footerHeight = 0
+				}else{
+					self.headerHeight = CGFloat(0)
+					self.footerHeight = CGFloat(200)
+				}
+			}
+		})
+		
 	}
 
 	
 	//MARK:- UITableview
+	
+	var podcastSearchView = Bundle.main.loadNibNamed("PodcastsSearchingView", owner: self, options: nil)?.first as? UIView
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		return podcastSearchView
+	}
+	
+	
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return podcasts.isEmpty && searchController.searchBar.text?.isEmpty == false ? footerHeight : 0
+	}
+	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let label = UILabel()
+		label.text = "Please enter a valid search Term"
+		label.textAlignment = .center
+		label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+		label.textColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+		return label
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return self.podcasts.isEmpty && searchController.searchBar.text?.isEmpty == true ? 250 : headerHeight
+	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
@@ -64,18 +105,8 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate {
 		navigationController?.pushViewController(episodesController, animated: true)
 	}
 	
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let label = UILabel()
-		label.text = "Please enter a search Term"
-		label.textAlignment = .center
-		label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-		label.textColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-		return label
-	}
 	
-	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return self.podcasts.count > 0 ? 0 : 250
-	}
+	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return podcasts.count
 	}

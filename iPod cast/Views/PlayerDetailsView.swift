@@ -40,13 +40,12 @@ class PlayerDetailsView: UIView {
 	
 	fileprivate func observePlayerCurrentTime() {
 		let interval = CMTimeMake(value: 1, timescale: 2)
-		player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { (time) in
-			self.currentTImeLabel.text = time.toDisplayString()
+		player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+			self?.currentTImeLabel.text = time.toDisplayString()
 			
-			let durationTime = self.player.currentItem?.duration
-			print("time = ",durationTime?.isIndefinite)
-			self.durationTimeLabel.text = durationTime?.toDisplayString()
-			self.updateCurrentTimeSlider()
+			let durationTime = self?.player.currentItem?.duration
+			self?.durationTimeLabel.text = durationTime?.toDisplayString()
+			self?.updateCurrentTimeSlider()
 		}
 	}
 	
@@ -66,10 +65,16 @@ class PlayerDetailsView: UIView {
 		let time = CMTimeMake(value: 1, timescale: 3)
 		let times = [NSValue(time: time)]
 		
-		player.addBoundaryTimeObserver(forTimes: times, queue: .main) {
+		//Player has a reference to self
+		//self has a reference to player
+		player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
 			print("Episode started playing")
-			self.enlargeEpisodeImageView()
+			self?.enlargeEpisodeImageView()
 		}
+	}
+	
+	deinit {
+		print("PlayerDetailsView memory being reclaimed")
 	}
 	
 	//MARK:- IB Actions and Outlets

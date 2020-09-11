@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7311567D250B2C7C000D02A1 /* PodcastsSearchingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */; };
 		7338C2A22507297600BCD937 /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7338C2A12507297600BCD937 /* PlayerDetailsView.xib */; };
 		7338C2A42507386D00BCD937 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */; };
 		734176702509D45C00DCB014 /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7341766F2509D45C00DCB014 /* CMTime.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastsSearchingView.xib; sourceTree = "<group>"; };
 		7338C2A12507297600BCD937 /* PlayerDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
 		7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
 		7341766F2509D45C00DCB014 /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				73D7CC6825059F8F00448B58 /* EpisodeCell.xib */,
 				7338C2A12507297600BCD937 /* PlayerDetailsView.xib */,
 				7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */,
+				7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			files = (
 				7338C2A22507297600BCD937 /* PlayerDetailsView.xib in Resources */,
 				73E6C1A3250049E200D3E750 /* LaunchScreen.storyboard in Resources */,
+				7311567D250B2C7C000D02A1 /* PodcastsSearchingView.xib in Resources */,
 				73E6C1A0250049E200D3E750 /* Assets.xcassets in Resources */,
 				73D7CC6A25059F8F00448B58 /* EpisodeCell.xib in Resources */,
 				739CA52C2504350A0047C95C /* PodcastCell.xib in Resources */,

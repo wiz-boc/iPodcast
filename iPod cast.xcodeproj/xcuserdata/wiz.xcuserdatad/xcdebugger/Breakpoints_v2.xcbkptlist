@@ -7,70 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4772C2DA-020D-4765-95C2-76221DE46C78"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iPod cast/API/APIService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "fetchEpisodes(feedURL:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "83805518-7FAA-4969-B7A8-E33F126FC980"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iPod cast/API/APIService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "fetchEpisodes(feedURL:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "83805518-7FAA-4969-B7A8-E33F126FC980 - 7584f3b5f90d6a07"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "iPod_cast.APIService.fetchEpisodes(feedURL: Swift.String, completionHandler: (Swift.Array&lt;iPod_cast.Episode&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "iPod cast"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wiz/Tutorials/IOS/LetsBuildThatApp/iPod%20cast/iPod%20cast/API/APIService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "1300">
-               </Location>
-               <Location
-                  uuid = "83805518-7FAA-4969-B7A8-E33F126FC980 - bbf2f869db2c744c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;FeedKit.Feed, FeedKit.ParserError&gt;) -&gt; () in iPod_cast.APIService.fetchEpisodes(feedURL: Swift.String, completionHandler: (Swift.Array&lt;iPod_cast.Episode&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "iPod cast"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wiz/Tutorials/IOS/LetsBuildThatApp/iPod%20cast/iPod%20cast/API/APIService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "140">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "938E82A3-6278-48DD-ADAD-8637020EC983"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -78,8 +14,8 @@
             filePath = "iPod cast/Views/PlayerDetailsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "observePlayerCurrentTime()"
             landmarkType = "7">
          </BreakpointContent>
