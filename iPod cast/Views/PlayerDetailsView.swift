@@ -60,6 +60,8 @@ class PlayerDetailsView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
+		
+		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
 		observePlayerCurrentTime()
 		
 		let time = CMTimeMake(value: 1, timescale: 3)
@@ -73,6 +75,19 @@ class PlayerDetailsView: UIView {
 		}
 	}
 	
+	@objc func handleTapMaximize(){
+		
+		//let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
+		let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
+
+		//let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+		mainTabBarController?.maximizePlayerDetails(episode: nil)
+		//print("Tapping to max")
+	}
+	
+	static func initFromNib() -> PlayerDetailsView {
+		return Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
+	}
 	deinit {
 		print("PlayerDetailsView memory being reclaimed")
 	}
@@ -128,7 +143,10 @@ class PlayerDetailsView: UIView {
 		})
 	}
 	@IBAction func dismissTapped(_ sender: Any) {
-		self.removeFromSuperview()
+		//self.removeFromSuperview()
+		let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
+		//let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+		mainTabBarController?.minimizePlayerDetails()
 	}
 	
 	@IBAction func handleCurrentTimeSliderChanged(_ sender: UISlider) {
