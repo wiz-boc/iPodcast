@@ -15,11 +15,14 @@ class PlayerDetailsView: UIView {
 		didSet {
 			episodeTitleLabel.text = episode.title
 			authorLabel.text = episode.author
+			miniTitleLabel.text = episode.title
+			
 			
 			playEpisode()
 			
 			guard let url = URL(string: episode.imageUrl ?? "") else {return }
 			episodeImageView.sd_setImage(with: url, completed: nil)
+			miniEpisodeImageView.sd_setImage(with: url)
 		}
 	}
 	
@@ -57,13 +60,16 @@ class PlayerDetailsView: UIView {
 		let percentage = currentTimeSeconds / durationSeconds
 		self.currentTimeSlider.value = Float(percentage)
 	}
+	
+	var panGesture: UIPanGestureRecognizer!
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
 		
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
 		observePlayerCurrentTime()
-		
+		panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+		addGestureRecognizer(panGesture)
 		let time = CMTimeMake(value: 1, timescale: 3)
 		let times = [NSValue(time: time)]
 		
@@ -75,10 +81,46 @@ class PlayerDetailsView: UIView {
 		}
 	}
 	
+	@objc func handlePan(gesture: UIPanGestureRecognizer){
+		
+		if gesture.state == .changed {
+			handlePanChanged(gesture: gesture)
+		}else if gesture.state == .ended {
+			handlePanEnded(gesture: gesture)
+		}
+		
+	}
+	func handlePanChanged(gesture: UIPanGestureRecognizer){
+		let translation = gesture.translation(in: self.superview)
+		
+		self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+		self.miniPlayerView.alpha = 1 + translation.y / 200
+		self.maximizedStackView.alpha = -translation.y / 200
+	}
+	
+	func handlePanEnded(gesture: UIPanGestureRecognizer){
+		let translation = gesture.translation(in: self.superview)
+		let velocity = gesture.velocity(in: self.superview)
+		UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+			self.transform = .identity
+			if translation.y < -200  || velocity.y < -500 {
+				let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
+				
+				mainTabBarController?.maximizePlayerDetails(episode: nil)
+				gesture.isEnabled = false
+			}else{
+				self.miniPlayerView.alpha = 1
+				self.maximizedStackView.alpha = 0
+			}
+			
+		})
+	}
+	
 	@objc func handleTapMaximize(){
 		
 		//let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
 		let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
+		panGesture.isEnabled = false
 
 		//let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
 		mainTabBarController?.maximizePlayerDetails(episode: nil)
@@ -94,6 +136,24 @@ class PlayerDetailsView: UIView {
 	
 	//MARK:- IB Actions and Outlets
 	
+	
+	@IBOutlet weak var miniEpisodeImageView: UIImageView!
+	@IBOutlet weak var miniTitleLabel: UILabel!
+	@IBOutlet weak var miniPlayPauseButton: UIButton! {
+		didSet {
+			miniPlayPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+			miniPlayPauseButton.imageView?.contentMode = .scaleAspectFit
+			miniPlayPauseButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		}
+	}
+	@IBOutlet weak var miniFastForwardButton: UIButton! {
+		didSet {
+			miniFastForwardButton.imageView?.contentMode = .scaleAspectFit
+			miniFastForwardButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		}
+	}
+	@IBOutlet weak var miniPlayerView: UIView!
+	@IBOutlet weak var maximizedStackView: UIStackView!
 	@IBOutlet weak var currentTimeSlider: UISlider!
 	@IBOutlet weak var durationTimeLabel: UILabel!
 	@IBOutlet weak var currentTImeLabel: UILabel!
@@ -116,10 +176,12 @@ class PlayerDetailsView: UIView {
 	@objc func handlePlayPause(){
 		if player.timeControlStatus == .paused {
 			playPauseTapped.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+			miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
 			player.play()
 			enlargeEpisodeImageView()
 		}else{
 			playPauseTapped.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+			miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
 			player.pause()
 			shrinkEpisodeImageView()
 		}
@@ -147,6 +209,7 @@ class PlayerDetailsView: UIView {
 		let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
 		//let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
 		mainTabBarController?.minimizePlayerDetails()
+		panGesture.isEnabled = true
 	}
 	
 	@IBAction func handleCurrentTimeSliderChanged(_ sender: UISlider) {
