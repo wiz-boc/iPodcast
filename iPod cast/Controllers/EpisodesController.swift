@@ -80,9 +80,7 @@ class EpisodesController: UITableViewController {
 		
 		let episode = self.episodes[indexPath.row]
 		
-		let mainTabBarController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? MainTabBarController
-		//let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-		mainTabBarController?.maximizePlayerDetails(episode: episode)
+		UIApplication.mainTabBarController()?.maximizePlayerDetails(episode: episode)
 //		let episode = self.episodes[indexPath.row]
 //		print("trying to play episode:", episode.title)
 //

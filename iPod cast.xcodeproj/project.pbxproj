@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7311567D250B2C7C000D02A1 /* PodcastsSearchingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */; };
+		732CDF61251C58CD006797CB /* PlayerDetailsView+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732CDF60251C58CD006797CB /* PlayerDetailsView+Gestures.swift */; };
+		732CDF63251E48A3006797CB /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732CDF62251E48A3006797CB /* UIApplication.swift */; };
 		7338C2A22507297600BCD937 /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7338C2A12507297600BCD937 /* PlayerDetailsView.xib */; };
 		7338C2A42507386D00BCD937 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */; };
 		734176702509D45C00DCB014 /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7341766F2509D45C00DCB014 /* CMTime.swift */; };
@@ -36,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastsSearchingView.xib; sourceTree = "<group>"; };
+		732CDF60251C58CD006797CB /* PlayerDetailsView+Gestures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayerDetailsView+Gestures.swift"; sourceTree = "<group>"; };
+		732CDF62251E48A3006797CB /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		7338C2A12507297600BCD937 /* PlayerDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
 		7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
 		7341766F2509D45C00DCB014 /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				73D7CC6725059F8F00448B58 /* EpisodeCell.swift */,
 				73D7CC6825059F8F00448B58 /* EpisodeCell.xib */,
 				7338C2A12507297600BCD937 /* PlayerDetailsView.xib */,
+				732CDF60251C58CD006797CB /* PlayerDetailsView+Gestures.swift */,
 				7338C2A32507386D00BCD937 /* PlayerDetailsView.swift */,
 				7311567C250B2C7C000D02A1 /* PodcastsSearchingView.xib */,
 			);
@@ -122,6 +127,7 @@
 				73D7CC6C2505DE7400448B58 /* String.swift */,
 				73D7CC6E2505DF4200448B58 /* RSSFeed.swift */,
 				7341766F2509D45C00DCB014 /* CMTime.swift */,
+				732CDF62251E48A3006797CB /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -257,7 +263,9 @@
 				73D7CC6D2505DE7400448B58 /* String.swift in Sources */,
 				73D0FAE325006BFE003EFD16 /* Podcast.swift in Sources */,
 				73E6C1AB25004A8F00D3E750 /* MainTabBarController.swift in Sources */,
+				732CDF63251E48A3006797CB /* UIApplication.swift in Sources */,
 				73D0FAE025006AC1003EFD16 /* PodcastsSearchController.swift in Sources */,
+				732CDF61251C58CD006797CB /* PlayerDetailsView+Gestures.swift in Sources */,
 				73E6C199250049E000D3E750 /* SceneDelegate.swift in Sources */,
 				734176702509D45C00DCB014 /* CMTime.swift in Sources */,
 				73D7CC6125056FBD00448B58 /* EpisodesController.swift in Sources */,
