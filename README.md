@@ -21,7 +21,10 @@ This is an IOS app that plays Podcasts from the iTunes library, bookmarking your
 ![IPod screenshots](Documentation/ipod.gif)
 
 P.S application is still in progress
+
+
 Kenroy Gayle - Callmewiz
-Acknowledgments
+
+###Acknowledgments
 
 Letsbuildthatapp
