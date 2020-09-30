@@ -24,6 +24,46 @@ class EpisodesController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
+		setupNavigationBarButtons()
+	}
+
+	//MARK:- Setup work
+	
+	fileprivate func setupNavigationBarButtons(){
+		navigationItem.rightBarButtonItems = [
+			UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
+			UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetchSavedPodcasts)),
+			
+		]
+	}
+	let favoritedPodcastKey = "favouritedPodcastKey"
+	@objc fileprivate func handleFetchSavedPodcasts(){
+		
+		do{
+			guard let data = UserDefaults.standard.data(forKey: favoritedPodcastKey) else { return }
+			let podcast = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Podcast
+			
+			//let podcast = try NSKeyedUnarchiver.unarchivedObject(ofClass: Podcast.self, from: data)
+			print(podcast?.artistName ?? "")
+		}catch{
+			print("Failed to unarchieve data : \(error.localizedDescription) ")
+		}
+	}
+	
+	@objc fileprivate func handleSaveFavorite(){
+		print("Saving info into UserDefaults")
+		guard let podcast = self.podcast else {
+			return
+		}
+		//UserDefaults.standard.setValue(podcast.trackName, forKey: favoritedPodcastKey)
+		//1 transform podcast into data
+		do {
+			let data = try NSKeyedArchiver.archivedData(withRootObject: podcast, requiringSecureCoding: true)
+			UserDefaults.standard.set(data, forKey: favoritedPodcastKey)
+		}catch  {
+			print("Could not archieve podcast : \(error.localizedDescription)")
+		}
+		
 	}
 	
 	fileprivate func fetchEpisodes(){
@@ -39,14 +79,14 @@ class EpisodesController: UITableViewController {
 	}
 	
 	
-	
-	//MARK:- Setup work
 	fileprivate func setupTableView(){
 		
 		let nib = UINib(nibName: "EpisodeCell", bundle: nil)
 		tableView.register(nib, forCellReuseIdentifier: cellId)
 		tableView.tableFooterView = UIView()
 	}
+	
+	
 	
 	//MARK:- UITableview
 	
