@@ -36,13 +36,17 @@ class EpisodesController: UITableViewController {
 			
 		]
 	}
-	let favoritedPodcastKey = "favouritedPodcastKey"
+	
 	@objc fileprivate func handleFetchSavedPodcasts(){
 		
 		do{
-			guard let data = UserDefaults.standard.data(forKey: favoritedPodcastKey) else { return }
-			let podcast = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Podcast
+			guard let data = UserDefaults.standard.data(forKey: UserDefaults.favoritedPodcastKey) else { return }
+			//let podcast = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Podcast
 			
+			let savedPodcasts = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Podcast]
+			savedPodcasts?.forEach({(p) in
+				print(p.trackName ?? "")
+			})
 			//let podcast = try NSKeyedUnarchiver.unarchivedObject(ofClass: Podcast.self, from: data)
 			print(podcast?.artistName ?? "")
 		}catch{
@@ -55,11 +59,16 @@ class EpisodesController: UITableViewController {
 		guard let podcast = self.podcast else {
 			return
 		}
-		//UserDefaults.standard.setValue(podcast.trackName, forKey: favoritedPodcastKey)
-		//1 transform podcast into data
+		
 		do {
-			let data = try NSKeyedArchiver.archivedData(withRootObject: podcast, requiringSecureCoding: true)
-			UserDefaults.standard.set(data, forKey: favoritedPodcastKey)
+			
+			//fetch our saved Podcast
+			//1 transform podcast into data
+			var listOfPodcasts = UserDefaults.standard.savedPodcasts()
+			listOfPodcasts.append(podcast)
+			
+			let data = try NSKeyedArchiver.archivedData(withRootObject: listOfPodcasts, requiringSecureCoding: false)
+			UserDefaults.standard.set(data, forKey: UserDefaults.favoritedPodcastKey)
 		}catch  {
 			print("Could not archieve podcast : \(error.localizedDescription)")
 		}
