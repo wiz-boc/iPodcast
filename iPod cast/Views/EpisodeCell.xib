@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,11 +31,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pubDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haN-Fb-wab">
                                 <rect key="frame" x="0.0" y="0.0" width="62.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="systemPurpleColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wao-Nu-s2x">
-                                <rect key="frame" x="0.0" y="24.5" width="33" height="21.5"/>
+                                <rect key="frame" x="0.0" y="24.5" width="32.5" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,12 +48,22 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 %" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlb-ah-dgm">
+                        <rect key="frame" x="24.5" y="86" width="83" height="34.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="CJ7-Yt-dBp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0g8-6S-bq1"/>
                     <constraint firstItem="3RE-Pd-lh8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="0w5-ah-H46"/>
                     <constraint firstItem="CJ7-Yt-dBp" firstAttribute="leading" secondItem="3RE-Pd-lh8" secondAttribute="trailing" constant="16" id="EZz-g4-HFy"/>
+                    <constraint firstItem="rlb-ah-dgm" firstAttribute="centerX" secondItem="3RE-Pd-lh8" secondAttribute="centerX" id="IFG-dy-wXH"/>
                     <constraint firstAttribute="trailingMargin" secondItem="CJ7-Yt-dBp" secondAttribute="trailing" id="IVE-lI-cdG"/>
+                    <constraint firstItem="rlb-ah-dgm" firstAttribute="centerY" secondItem="3RE-Pd-lh8" secondAttribute="centerY" id="jpe-cy-GFQ"/>
                     <constraint firstItem="3RE-Pd-lh8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zAA-Mg-hDc"/>
                 </constraints>
             </tableViewCellContentView>
@@ -59,6 +71,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="iih-My-5yD" id="ChP-zv-3xW"/>
                 <outlet property="feedImageView" destination="3RE-Pd-lh8" id="5u5-Co-SwT"/>
+                <outlet property="progressLabel" destination="rlb-ah-dgm" id="0Qs-ID-r3Y"/>
                 <outlet property="pubDateLabel" destination="haN-Fb-wab" id="adT-hV-x1j"/>
                 <outlet property="titleLabel" destination="wao-Nu-s2x" id="59H-JW-y3i"/>
             </connections>
@@ -67,5 +80,8 @@
     </objects>
     <resources>
         <image name="appicon" width="60" height="60"/>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -10,7 +10,14 @@ import Foundation
 import Alamofire
 import FeedKit
 
+extension Notification.Name {
+	static let downloadProgress = NSNotification.Name("downloadProgress")
+	static let downloadComplete = NSNotification.Name("downloadComplete")
+}
+
 class APIService {
+	
+	typealias EpisodeDownloadCompleteTuple = (fileUrl: String, episodeTitle: String)
 	
 	let baseiTunesSearchURL = "http://itunes.apple.com/search"
 	//singleton
@@ -40,10 +47,18 @@ class APIService {
 		let downloadRequest = DownloadRequest.suggestedDownloadDestination()
 		AF.download(episode.streamUrl, to: downloadRequest)
 			.downloadProgress { progress in
-				print("Progress: \(progress.fractionCompleted)")
+				//print("Progress: \(progress.fractionCompleted)")
+				
+				// I want to notify DownloadsController about my download progress somehow
+				
+				NotificationCenter.default.post(name: .downloadProgress, object: nil, userInfo: ["title": episode.title,"progress":progress.fractionCompleted])
 			}
 			.response{ (response) in
-				print(response.fileURL?.absoluteURL ?? "")
+				print(response.fileURL?.absoluteString ?? " -- nil")
+				
+				
+				let episodeDownComplete = EpisodeDownloadCompleteTuple(response.fileURL?.absoluteString ?? "", episode.title)
+				
 				var downloadedEpisodes = UserDefaults.standard.downloadEpisodes()
 				guard let index = downloadedEpisodes.firstIndex(where: { $0.title ==  episode.title && $0.author == episode.author}) else { return }
 				downloadedEpisodes[index].fileUrl = response.fileURL?.absoluteString ?? ""
@@ -51,6 +66,8 @@ class APIService {
 				do{
 					let data = try JSONEncoder().encode(downloadedEpisodes)
 					UserDefaults.standard.setValue(data, forKey: UserDefaults.downloadedEpisodeKey)
+					
+					NotificationCenter.default.post(name: .downloadComplete, object: episodeDownComplete, userInfo: nil)
 				}catch{
 					print("Fail to encide downlaoded episodes with file url update:", error)
 				}

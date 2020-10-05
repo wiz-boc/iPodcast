@@ -14,8 +14,8 @@
             filePath = "iPod cast/Views/PlayerDetailsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "observePlayerCurrentTime()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "iPod cast/Views/PlayerDetailsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "handleNextTrack()"
             landmarkType = "7">
          </BreakpointContent>
@@ -65,6 +65,70 @@
             startingLineNumber = "78"
             endingLineNumber = "78"
             landmarkName = "handleSaveFavorite()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "354D447E-AD94-4065-86EE-F80B68B8EE1E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iPod cast/Controllers/DownloadController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "handleDownloadComplete(notification:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "354D447E-AD94-4065-86EE-F80B68B8EE1E - 909ffa9e41adf1fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iPod_cast.DownloadController.(handleDownloadComplete in _4829F6764A5C8336380992D9229BDF69)(notification: Foundation.Notification) -&gt; ()"
+                  moduleName = "iPod cast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wiz/Tutorials/IOS/LetsBuildThatApp/iPod%20cast/iPod%20cast/Controllers/DownloadController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "819">
+               </Location>
+               <Location
+                  uuid = "354D447E-AD94-4065-86EE-F80B68B8EE1E - c1ecaf44a212b333"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (iPod_cast.Episode) -&gt; Swift.Bool in iPod_cast.DownloadController.(handleDownloadComplete in _4829F6764A5C8336380992D9229BDF69)(notification: Foundation.Notification) -&gt; ()"
+                  moduleName = "iPod cast"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wiz/Tutorials/IOS/LetsBuildThatApp/iPod%20cast/iPod%20cast/Controllers/DownloadController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CB669E1-EEC9-4EB8-884B-AE660650B468"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iPod cast/API/APIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "downloadEpisode(episode:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
