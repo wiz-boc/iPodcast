@@ -20,6 +20,13 @@ class FavouritesController: UICollectionViewController, UICollectionViewDelegate
 		setupCollectionView()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		podcasts = UserDefaults.standard.savedPodcasts()
+		collectionView.reloadData()
+		UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
+	}
+	
 	fileprivate func setupCollectionView(){
 		collectionView.backgroundColor = .white
 		collectionView.register(favouritePodcastCell.self, forCellWithReuseIdentifier: cellId)
@@ -50,6 +57,12 @@ class FavouritesController: UICollectionViewController, UICollectionViewDelegate
 	}
 	
 	//MARK:- UICollectionView Delegate / Spacing methods
+	
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let episodesController = EpisodesController()
+		episodesController.podcast = self.podcasts[indexPath.item]
+		navigationController?.pushViewController(episodesController, animated: true)
+	}
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return podcasts.count
 	}

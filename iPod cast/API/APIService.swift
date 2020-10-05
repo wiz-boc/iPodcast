@@ -16,6 +16,50 @@ class APIService {
 	//singleton
 	static let shared = APIService()
 	
+	func downloadEpisode(episode: Episode){
+		print("downloading episode using alamofire at at stream url: ",episode.streamUrl)
+
+//		AF.request("https://pbs.twimg.com/profile_images/1133109643734130688/BwioAwkz_400x400.jpg", method: .get, encoding: JSONEncoding.default)
+//			.downloadProgress { progress in
+//				print("Progress: \(progress.fractionCompleted)")
+//			}
+		
+		
+//		AF.download(episode.streamUrl, to: downloadRequest).downloadProgress { progress in
+//			print("Progress: \(progress.fractionCompleted)")
+//		}
+//		.responseData { response in
+//			if let data = response.value {
+//				print("Downloaded Data :", data)
+//			}
+//		}
+//		.response{ (response) in
+//			print(response.fileURL?.absoluteURL ?? "")
+//		}
+		
+		let downloadRequest = DownloadRequest.suggestedDownloadDestination()
+		AF.download(episode.streamUrl, to: downloadRequest)
+			.downloadProgress { progress in
+				print("Progress: \(progress.fractionCompleted)")
+			}
+			.response{ (response) in
+				print(response.fileURL?.absoluteURL ?? "")
+				var downloadedEpisodes = UserDefaults.standard.downloadEpisodes()
+				guard let index = downloadedEpisodes.firstIndex(where: { $0.title ==  episode.title && $0.author == episode.author}) else { return }
+				downloadedEpisodes[index].fileUrl = response.fileURL?.absoluteString ?? ""
+				
+				do{
+					let data = try JSONEncoder().encode(downloadedEpisodes)
+					UserDefaults.standard.setValue(data, forKey: UserDefaults.downloadedEpisodeKey)
+				}catch{
+					print("Fail to encide downlaoded episodes with file url update:", error)
+				}
+				
+			}
+		
+		
+	}
+	
 	
 	func fetchEpisodes(feedURL: String, completionHandler: @escaping ([Episode]) -> ()){
 		let secureFeedURL = feedURL.contains("https") ? feedURL : feedURL.replacingOccurrences(of: "http", with: "https")

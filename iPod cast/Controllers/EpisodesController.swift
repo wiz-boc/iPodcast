@@ -26,15 +26,25 @@ class EpisodesController: UITableViewController {
 		setupTableView()
 		setupNavigationBarButtons()
 	}
+	
+	
 
 	//MARK:- Setup work
 	
 	fileprivate func setupNavigationBarButtons(){
-		navigationItem.rightBarButtonItems = [
-			UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
-			UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetchSavedPodcasts)),
+		//let's check if we already saved this podcasr as fav
+		let savedPodcasts = UserDefaults.standard.savedPodcasts()
+		let hasFavorited = savedPodcasts.firstIndex(where: {$0.trackName == self.podcast?.trackName && $0.artistName == self.podcast?.artistName}) != nil
+		if hasFavorited {
+			//setting up out heart icon
+			navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "heart"), style: .plain, target: nil, action: nil)
+		}else{
+			navigationItem.rightBarButtonItems = [
+				UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
+//				UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetchSavedPodcasts)),
+			]
+		}
 			
-		]
 	}
 	
 	@objc fileprivate func handleFetchSavedPodcasts(){
@@ -62,17 +72,22 @@ class EpisodesController: UITableViewController {
 		
 		do {
 			
-			//fetch our saved Podcast
-			//1 transform podcast into data
 			var listOfPodcasts = UserDefaults.standard.savedPodcasts()
 			listOfPodcasts.append(podcast)
 			
 			let data = try NSKeyedArchiver.archivedData(withRootObject: listOfPodcasts, requiringSecureCoding: false)
 			UserDefaults.standard.set(data, forKey: UserDefaults.favoritedPodcastKey)
+		
+			showBadgeHighlight()
+			navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "heart"), style: .plain, target: nil, action: nil)
 		}catch  {
 			print("Could not archieve podcast : \(error.localizedDescription)")
 		}
 		
+	}
+	
+	fileprivate func showBadgeHighlight(){
+		UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = "New"
 	}
 	
 	fileprivate func fetchEpisodes(){
@@ -131,7 +146,31 @@ class EpisodesController: UITableViewController {
 		let mainTabBarController = UIApplication.mainTabBarController()
 		mainTabBarController?.maximizePlayerDetails(episode: episode, playlistEpisodes: self.episodes)
 		
-
 	}
+//	override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//		<#code#>
+//	}
+	
+	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		return UISwipeActionsConfiguration(actions: [
+			makeCompleteContextualAction(forRowAt: indexPath)
+		])
+	}
+	
+	private func makeCompleteContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
+		return UIContextualAction(style: .normal, title: "Download") { (action, swipeButtonView, completion) in
+//			action.image = ProjectImages.Annotation.checkmark
+//			action.image?.withTintColor(.systemGreen)
+//			action.backgroundColor = .systemOrange
+			print("Downloading episode into userdefaults")
+			let episode = self.episodes[indexPath.row]
+			UserDefaults.standard.downloadEpisode(episode: episode)
+			
+			APIService.shared.downloadEpisode(episode: episode)
+			//download the podcast episode using elamofire
+			completion(true)
+		}
+	}
+	
 	
 }
